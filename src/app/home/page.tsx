@@ -3,6 +3,7 @@ import { AuroraBackground } from '@/components/ui/shadcn-io/aurora-background'
 
 function Hero() {
   return (
+    <>
       <div className='flex flex-col items-center justify-start w-full min-h-screen px-4 pt-16 pb-8 sm:px-6 lg:px-8 sm:pt-20'>
         <div className='w-full max-w-6xl mx-auto text-center'>
           <div className='mb-8 lg:mb-12'>
@@ -106,6 +107,7 @@ int main() {
           </div>
         </div>
       </div>
+    </>
   )
 }
 

@@ -16,7 +16,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setBgColor('bg-white/80 backdrop-blur-md shadow-lg');
+        setBgColor('bg-white/10 backdrop-blur-md shadow-lg');
         setIsScrolled(true);
       } else {
         setBgColor('bg-transparent');
