@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Hero from "./home/page";
 
 export default function Home() {
   return (
-   <>
-   <h1 className="text-3xl font-bold">Hello AUTO Mate</h1>
-   </>
+    <>
+      <Hero />
+    </>
   );
 }
