@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/component-ui/Navbar";
+import { AuroraBackground } from "@/components/ui/shadcn-io/aurora-background";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <main>{children}</main>
+        <AuroraBackground>
+          <Navbar />
+          <main>{children}</main>
+        </AuroraBackground>
       </body>
     </html>
   );

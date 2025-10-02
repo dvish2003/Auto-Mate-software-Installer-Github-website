@@ -1,10 +1,17 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 const Navbar = () => {
   const [bgColor, setBgColor] = useState('bg-transparent');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: 'Features', href: '#features' },
+    { name: 'Solutions', href: '#solutions' },
+    { name: 'Contact', href: '#contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,26 +25,14 @@ const Navbar = () => {
     };
     
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when clicking on a link
-  const handleNavClick = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const handleNavClick = () => setIsMobileMenuOpen(false);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isMobileMenuOpen]);
 
   return (
@@ -48,34 +43,22 @@ const Navbar = () => {
             <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase transition-colors duration-300 ${
               isScrolled ? 'text-gray-900' : 'text-gray-700'
             }`}>
-              AMA-Installer
+              <Link href="/">AMA-Installer</Link>
             </h1>
 
+            {/* Desktop Menu */}
             <div className='items-center hidden space-x-6 md:space-x-8 lg:space-x-12 md:flex'>
-              <a 
-                href='#features' 
-                className={`font-medium transition-colors duration-300 hover:text-black ${
-                  isScrolled ? 'text-gray-700' : 'text-gray-700'
-                }`}
-              >
-                Features
-              </a>
-              <a 
-                href='#solutions' 
-                className={`font-medium transition-colors duration-300 hover:text-black ${
-                  isScrolled ? 'text-gray-700' : 'text-gray-700'
-                }`}
-              >
-                Solutions
-              </a>
-              <a 
-                href='#contact' 
-                className={`font-medium transition-colors duration-300 hover:text-black ${
-                  isScrolled ? 'text-gray-700' : 'text-gray-700'
-                }`}
-              >
-                Contact
-              </a>
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name}
+                  href={link.href} 
+                  className={`font-medium transition-colors duration-300 hover:text-black ${
+                    isScrolled ? 'text-gray-700' : 'text-gray-700'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
               <button className={`px-4 py-2 text-sm md:text-base rounded-lg font-medium transition-all duration-300 ${
                 isScrolled 
                   ? 'bg-black text-white hover:bg-gray-800' 
@@ -85,6 +68,7 @@ const Navbar = () => {
               </button>
             </div>
 
+            {/* Mobile Menu Button */}
             <button 
               className='p-2 md:hidden'
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -104,6 +88,7 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Mobile Menu */}
       <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
         isMobileMenuOpen 
           ? 'opacity-100 pointer-events-auto' 
@@ -128,28 +113,18 @@ const Navbar = () => {
               </svg>
             </button>
 
+            {/* Mobile Links */}
             <div className="flex flex-col space-y-6">
-              <a 
-                href='#features' 
-                className='py-3 text-xl font-medium text-gray-700 transition-colors duration-200 border-b border-gray-200 hover:text-black'
-                onClick={handleNavClick}
-              >
-                Features
-              </a>
-              <a 
-                href='#solutions' 
-                className='py-3 text-xl font-medium text-gray-700 transition-colors duration-200 border-b border-gray-200 hover:text-black'
-                onClick={handleNavClick}
-              >
-                Solutions
-              </a>
-              <a 
-                href='#contact' 
-                className='py-3 text-xl font-medium text-gray-700 transition-colors duration-200 border-b border-gray-200 hover:text-black'
-                onClick={handleNavClick}
-              >
-                Contact
-              </a>
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name}
+                  href={link.href} 
+                  className='py-3 text-xl font-medium text-gray-700 transition-colors duration-200 border-b border-gray-200 hover:text-black'
+                  onClick={handleNavClick}
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
 
             <div className="pt-6 mt-auto">
@@ -161,6 +136,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Spacer */}
       <div className="h-16 md:h-20" />
     </>
   )
